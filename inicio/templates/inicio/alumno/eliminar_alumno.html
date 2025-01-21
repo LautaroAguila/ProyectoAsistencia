@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+    ELIMINAR
+{% endblock title %}
+
+{% block h1_header %}
+    Eliminar Alumno!
+{% endblock h1_header %}
+
+{% block h3_header %}
+
+{% endblock h3_header %}
+
+{% block main %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Confirmar Eliminación</h2>
+                    <form action="{% url 'inicio:eliminar_alumno' alumno.id %}" method="POST" class="p-4">
+                        {% csrf_token %}
+                        
+                        <p class="text-center">¿Deseas eliminar al alumno <strong>{{ alumno }}</strong>?</p>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                Confirmar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

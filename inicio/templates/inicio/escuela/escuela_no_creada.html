@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Escuela No Creada
+{% endblock title %}
+{% block h1_header %}
+
+{% endblock h1_header %}
+{% block h3_header %}
+
+{% endblock h3_header %}
+{% block main %}
+<div class="container mt-5">
+    <div class="alert alert-warning text-center">
+        <h3 class="alert-heading">¡Escuela No Encontrada!</h3>
+        <p class="mb-0">La escuela con ID {{ escuela }} no está registrada en el sistema.</p>
+        <hr>
+        <p>Haz clic aquí para <a href="{% url 'inicio:crear_escuela' %}" class="btn btn-link">Crear una nueva escuela</a></p>
+    </div>
+</div>
+{% endblock main %}

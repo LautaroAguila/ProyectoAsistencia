@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Crear Alumno
+{% endblock title %}
+
+{% block h1_header %}
+    Proyecto Puentes
+{% endblock h1_header %}
+
+{% block main %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="card-title m-0">Registrar Nuevo Alumno</h2>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'inicio:crear_alumno' %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="mb-4">
+                            {{ form.as_p }}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-user-plus me-2"></i> Crear Alumno
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center text-muted">
+                    Complete todos los campos para registrar un nuevo alumno.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

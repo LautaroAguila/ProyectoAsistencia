@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Editar Alumno
+{% endblock title %}
+
+{% block h1_header %}
+    Editar  a {{ alumno.nombre }}!
+{% endblock h1_header %}
+
+{% block h3_header %}
+
+{% endblock h3_header %}
+
+{% block main %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2 class="card-title m-0">Editar Alumno: {{ alumno.nombre }}</h2>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'inicio:editar_alumno' alumno.id %}" method="POST" enctype="multipart/form-data" class="p-3">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            {{ form.as_p }}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-save me-2"></i> Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center text-muted">
+                    Asegúrese de completar todos los campos antes de guardar.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

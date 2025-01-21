@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ escuela.nombre }}
+{% endblock title %}
+{% block h1_header %}
+    Escuela N° {{escuela.numero}}
+{% endblock h1_header %}
+{% block h3_header %}
+
+{% endblock h3_header %}
+{% block main %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5 class="mb-0">{{ escuela.nombre_escuela }}</h5>
+                </div>
+                <div class="card-body text-center">
+                    <p><strong>Escuela numero </strong> {{ escuela.numero }}</p>
+                    <p><strong>Dirección:</strong> {{ escuela.direccion }}</p>
+                    <p><strong>Telefono:</strong> {{ escuela.tel_escuela }}</p>
+                    <p><strong>Mail:</strong> {{ escuela.mail_escuela }}</p>
+                    <p><strong>Directivo:</strong> {{ escuela.nombre_directivo }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

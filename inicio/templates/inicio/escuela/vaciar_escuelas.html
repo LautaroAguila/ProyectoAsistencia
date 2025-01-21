@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+    ELIMINAR
+{% endblock title %}
+
+{% block h1_header %}
+    Eliminaras todas las escuelas!
+{% endblock h1_header %}
+{% block h3_header %}
+
+{% endblock h3_header %}
+{% block main %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body">
+                            <h2>¿Estás seguro de que quieres vaciar todas las escuelas?</h2>
+    
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-danger">Confirmar</button>
+                                </div>
+                            </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

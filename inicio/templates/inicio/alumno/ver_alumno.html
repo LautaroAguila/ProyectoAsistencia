@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+    VER
+{% endblock title %}
+
+{% block h1_header %}
+    {{ alumno.nombre }} {{ alumno.apellido }}
+{% endblock h1_header %}
+
+{% block h3_header %}
+
+{% endblock h3_header %}
+
+{% block main %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Detalles del {{ alumno.nombre }} {{ alumno.apellido }}</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> <strong>Nombre:</strong> {{ alumno.nombre }} {{ alumno.apellido }} </li>
+                        <li class="list-group-item"> <strong>Grado:</strong> {{ alumno.grado }} </li>
+                        <li class="list-group-item"> <strong>Edad:</strong> {{ alumno.edad }} </li>
+                        <li class="list-group-item"> <strong>Turno:</strong> {{ alumno.turno }} </li>
+                        <li class="list-group-item"> <strong>DNI:</strong> {{ alumno.dni }} </li>
+                        <li class="list-group-item"> <strong>Grupo Familiar:</strong> {{ alumno.grupo_familiar }} </li>
+                        <li class="list-group-item"> <strong>Teléfono de Contacto:</strong> {{ alumno.tel_contacto }} </li>
+                        <li class="list-group-item"> <strong>Nombre del Tutor:</strong> {{ alumno.nombre_tutor }} </li>
+                        <li class="list-group-item"> <strong>DNI del Tutor:</strong> {{ alumno.dni_tutor }} </li>
+                        <li class="list-group-item"> <strong>Escuela:</strong> {{ alumno.escuela }} </li>
+                        <li class="list-group-item"> <strong>Días:</strong> {{ alumno.dias }} </li>
+                        <li class="list-group-item"> <strong>Asistencias:</strong> {{ alumno.asistencias }} </li>
+                        <li class="list-group-item"> <strong>Inasistencias:</strong> {{ alumno.inasistencias }} </li>
+                        <li class="list-group-item"> <strong>Profesionales:</strong> {{ alumno.profesionales }} </li>
+                        <li class="list-group-item"> <strong>Observaciones:</strong> {{ alumno.observaciones }} </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}
