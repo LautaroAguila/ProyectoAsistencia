@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -74,10 +74,27 @@ WSGI_APPLICATION = 'asistencias.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+import os
+import sys
+
+# Detectamos si estamos ejecutando desde el ejecutable o el código fuente
+if getattr(sys, 'frozen', False):
+    base_path = sys._MEIPASS  # Ruta temporal cuando se ejecuta el .exe
+else:
+    base_path = os.path.abspath('db.sqlite3')  # Usamos el directorio actual si estamos en desarrollo
+
+# Establecemos la ruta donde queremos almacenar la base de datos
+user_data_dir = os.path.join(os.path.expanduser("~"), 'asistencias', 'data')
+os.makedirs(user_data_dir, exist_ok=True)
+
+# Usamos la ruta fija para la base de datos
+db_path = os.path.join(user_data_dir, 'mi_base_de_datos.db')
+
+# Ahora usamos la ruta fija en la configuración de la base de datos de Django
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': db_path,  # Cambiar la ruta aquí para usar la ruta fija
     }
 }
 
@@ -117,7 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
