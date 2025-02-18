@@ -13,5 +13,7 @@ urlpatterns = [
     path('escuela/<int:escuela_numero>/', views.ver_escuela, name='ver_escuela'),
     path('escuela/crear/', views.CrearEscuela.as_view(), name='crear_escuela'),
     path('escuela/vaciar_escuelas/', views.vaciar_escuelas, name='vaciar_escuelas'),
-
+    path('export/excel/', views.export_alumnos_excel, name='export_excel')
 ]
+
+

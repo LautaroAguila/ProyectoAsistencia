@@ -54,7 +54,15 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <a class="nav-link" href="{% url 'inicio:vaciar_escuelas' %}">Eliminar escuelas</a>
+            
+            <h2>Descargar Listado de Alumnos</h2>
+            <p>Seleccione el turno:</p>
+            <a href="{% url 'inicio:export_excel' %}?turno=M" class="btn btn-primary">Descargar Turno Mañana</a>
+            <a href="{% url 'inicio:export_excel' %}?turno=T" class="btn btn-secondary">Descargar Turno Tarde</a>
+            <p></p>
+            <h2>Eliminar escuelas</h2>
+            <a href="{% url 'inicio:vaciar_escuelas' %}" class="btn btn-danger btn-sm">Eliminar escuelas</a>
+
         </div>
     {% else %}
         <p class="text-center text-muted mt-4">No hay alumnos disponibles.</p>

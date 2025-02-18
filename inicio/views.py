@@ -4,7 +4,7 @@ from django.views.generic import *
 from inicio.models import Alumno, Escuela
 from django.urls import reverse_lazy
 from django.shortcuts import render, get_object_or_404
-
+import openpyxl
 
 class CrearAlumno(CreateView):
     model = Alumno
@@ -90,3 +90,63 @@ def seleccionar_turno(request):
     # Renderizar el formulario de selección
     return render(request, 'inicio/seleccionar_turno.html')
 
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
+
+from django.http import HttpResponse
+import openpyxl
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
+
+def export_alumnos_excel(request):
+    """Genera un Excel con los alumnos según el turno seleccionado."""
+    turno = request.GET.get('turno', 'M')  # Valor predeterminado: Mañana
+
+    if turno not in ['M', 'T']:
+        return HttpResponse("Turno inválido", status=400)
+
+    alumnos = Alumno.objects.filter(turno_profesor=turno)
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = f'attachment; filename="alumnos_{turno}.xlsx"'
+
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = f'Alumnos - Turno {turno}'
+
+    # Encabezados
+    headers = [
+        'Nombre', 'Apellido', 'Edad', 'Escuela', 'Grado', 'Turno', 'DNI',
+        'Grupo Familiar', 'Tel Contacto', 'Nombre Tutor', 'DNI Tutor',
+        'Días Totales', 'Asistencias', 'Inasistencias', 'Porcentaje Asistencia',
+        'Profesionales', 'Observaciones'
+    ]
+    sheet.append(headers)
+
+    # Estilos
+    header_font = Font(bold=True, color="FFFFFF")
+    header_fill = PatternFill(start_color="4F81BD", end_color="4F81BD", fill_type="solid")
+    border_style = Border(left=Side(border_style="thin"), right=Side(border_style="thin"),
+                          top=Side(border_style="thin"), bottom=Side(border_style="thin"))
+
+    for col_num, header in enumerate(headers, 1):
+        cell = sheet.cell(row=1, column=col_num)
+        cell.font = header_font
+        cell.fill = header_fill
+        cell.alignment = Alignment(horizontal="center", vertical="center")
+        cell.border = border_style
+
+    # Agregar los alumnos filtrados
+    for alumno in alumnos:
+        sheet.append([
+            alumno.nombre, alumno.apellido, alumno.edad, alumno.escuela, alumno.grado, alumno.turno, alumno.dni,
+            alumno.grupo_familiar, alumno.tel_contacto, alumno.nombre_tutor, alumno.dni_tutor,
+            alumno.dias, alumno.asistencias, alumno.inasistencias, f"{alumno.porcentaje:.1f}%",
+            alumno.profesionales, alumno.observaciones
+        ])
+
+    # Ajuste de ancho automático
+    for col in sheet.columns:
+        max_length = max(len(str(cell.value)) if cell.value else 0 for cell in col)
+        sheet.column_dimensions[col[0].column_letter].width = max_length + 2
+
+    workbook.save(response)
+    return response
