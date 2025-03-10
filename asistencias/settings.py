@@ -140,3 +140,10 @@ STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+DATE_FORMAT = 'd/m/Y'
+DATETIME_FORMAT = 'd/m/Y H:i'
+USE_L10N = True
+USE_TZ = True
+from django.conf.locale.es import formats as es_formats
+
+es_formats.DATE_INPUT_FORMATS = ['%d/%m/%Y']

@@ -1,4 +1,6 @@
 from django.db import models
+import datetime
+from django.utils import formats
 
 class Alumno(models.Model):
     nombre = models.CharField(default='', max_length=20)
@@ -17,9 +19,10 @@ class Alumno(models.Model):
     inasistencias = models.IntegerField(default=0)
     profesionales = models.CharField(default='', max_length=1000)
     observaciones = models.TextField(default='')
+    fechaNacimiento = models.DateField(null=True, blank=True)
+    direccion = models.CharField(default='', max_length=30)
 
     turno_profesor = models.CharField(default='T', choices=[('M', 'Mañana') , ('T', 'Tarde')], max_length=1)
-
 
     @property
     def porcentaje(self):

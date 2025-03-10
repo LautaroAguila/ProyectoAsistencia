@@ -10,7 +10,7 @@ class CrearAlumno(CreateView):
     model = Alumno
     template_name = "inicio/alumno/crear_alumno.html"
     success_url = reverse_lazy('inicio:listado_alumnos')
-    fields = ['nombre', 'apellido', 'escuela', 'dias', 'turno_profesor']
+    fields = ['nombre', 'apellido', 'dni', 'escuela', 'dias', 'turno_profesor', 'fechaNacimiento']
 
 class ListadoAlumnos(ListView):
     model = Alumno
@@ -47,7 +47,7 @@ class EditarAlumno(UpdateView):
     model = Alumno
     template_name = "inicio/alumno/editar_alumno.html"
     success_url = reverse_lazy('inicio:listado_alumnos')
-    fields = ['nombre','apellido','grado','edad','turno','dni','grupo_familiar','tel_contacto','nombre_tutor','dni_tutor','escuela','dias','asistencias','inasistencias','profesionales','observaciones']
+    fields = ['nombre','apellido','grado','edad','turno','dni', 'direccion' ,'grupo_familiar','tel_contacto','nombre_tutor','dni_tutor','escuela','dias','asistencias','inasistencias','profesionales','observaciones']
 
 class EliminarAlumno(DeleteView):
     model = Alumno
@@ -114,7 +114,7 @@ def export_alumnos_excel(request):
 
     # Encabezados
     headers = [
-        'Nombre', 'Apellido', 'Edad', 'Escuela', 'Grado', 'Turno', 'DNI',
+        'Nombre', 'Apellido', 'Edad', 'Escuela', 'Grado', 'Turno', 'DNI', 'Fecha de Nacimiento (a/m/d)', 'Domicilio',
         'Grupo Familiar', 'Tel Contacto', 'Nombre Tutor', 'DNI Tutor',
         'Días Totales', 'Asistencias', 'Inasistencias', 'Porcentaje Asistencia',
         'Profesionales', 'Observaciones'
@@ -125,7 +125,7 @@ def export_alumnos_excel(request):
     header_font = Font(bold=True, color="FFFFFF")
     header_fill = PatternFill(start_color="4F81BD", end_color="4F81BD", fill_type="solid")
     border_style = Border(left=Side(border_style="thin"), right=Side(border_style="thin"),
-                          top=Side(border_style="thin"), bottom=Side(border_style="thin"))
+                            top=Side(border_style="thin"), bottom=Side(border_style="thin"))
 
     for col_num, header in enumerate(headers, 1):
         cell = sheet.cell(row=1, column=col_num)
@@ -137,7 +137,7 @@ def export_alumnos_excel(request):
     # Agregar los alumnos filtrados
     for alumno in alumnos:
         sheet.append([
-            alumno.nombre, alumno.apellido, alumno.edad, alumno.escuela, alumno.grado, alumno.turno, alumno.dni,
+            alumno.nombre, alumno.apellido, alumno.edad, alumno.escuela, alumno.grado, alumno.turno, alumno.dni, alumno.fechaNacimiento, alumno.direccion,
             alumno.grupo_familiar, alumno.tel_contacto, alumno.nombre_tutor, alumno.dni_tutor,
             alumno.dias, alumno.asistencias, alumno.inasistencias, f"{alumno.porcentaje:.1f}%",
             alumno.profesionales, alumno.observaciones

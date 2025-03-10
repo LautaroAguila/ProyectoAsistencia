@@ -21,7 +21,20 @@
                         {% csrf_token %}
 
                         <div class="mb-4">
-                            {{ form.as_p }}
+                            {% for field in form %}
+                                {% if field.name != "fechaNacimiento" %}
+                                    <div class="mb-3">
+                                        {{ field.label_tag }} {{ field }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+                            <!-- Campo de fecha estilizado con Bootstrap Datepicker -->
+                            <label for="id_fechaNacimiento">Fecha de Nacimiento:</label>
+                            <div class="input-group">
+                                <input type="text" name="fechaNacimiento" id="id_fechaNacimiento" class="form-control datepicker" placeholder="Seleccione una fecha">
+                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                            </div>
                         </div>
 
                         <div class="d-grid">
@@ -38,4 +51,6 @@
         </div>
     </div>
 </div>
+
+
 {% endblock main %}

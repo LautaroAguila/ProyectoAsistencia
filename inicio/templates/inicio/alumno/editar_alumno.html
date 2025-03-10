@@ -24,7 +24,14 @@
                     <form action="{% url 'inicio:editar_alumno' alumno.id %}" method="POST" enctype="multipart/form-data" class="p-3">
                         {% csrf_token %}
                         <div class="mb-4">
-                            {{ form.as_p }}
+                            {% for field in form %}
+                                {% if field.name != "fechaNacimiento" %}
+                                    <div class="mb-3">
+                                        {{ field.label_tag }} {{ field }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
                         </div>
 
                         <div class="d-grid gap-2">
